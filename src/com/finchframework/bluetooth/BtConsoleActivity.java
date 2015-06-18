@@ -132,9 +132,10 @@ public class BtConsoleActivity extends Activity {
         mSendButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 // Send a message using content of the edit text widget
-                TextView view = (TextView) findViewById(R.id.edit_text_out);
-                String message = view.getText().toString();
-                sendMessage(message);
+                sendFromTextView();
+                //TextView view = (TextView) findViewById(R.id.edit_text_out);
+                //String message = view.getText().toString();
+                //sendMessage(message);
             }
         });
 
@@ -187,8 +188,7 @@ public class BtConsoleActivity extends Activity {
 	 */
 	private void sendMessage(String message) {
 		if (btSPPHelper.getState() != BtSPPHelper.State.CONNECTED) {
-			Toast.makeText(this, R.string.not_connected, Toast.LENGTH_SHORT)
-					.show();
+			Toast.makeText(this, R.string.not_connected, Toast.LENGTH_SHORT).show();
 			return;
 		}
 
@@ -202,14 +202,25 @@ public class BtConsoleActivity extends Activity {
 		}
 	}
 
+    private void sendFromTextView(TextView view){
+        String message = view.getText().toString();
+        sendMessage(message);
+    }
+
+    private void sendFromTextView(){
+        TextView view = (TextView) findViewById(R.id.edit_text_out);
+        sendFromTextView(view);
+    }
+
     // The action listener for the EditText widget, to listen for the return key
     private final TextView.OnEditorActionListener mWriteListener =
         new TextView.OnEditorActionListener() {
         public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
             // If the action is a key-up event on the return key, send the message
             if (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_UP) {
-                String message = view.getText().toString();
-                sendMessage(message);
+                sendFromTextView(view);
+                //String message = view.getText().toString();
+                //sendMessage(message);
             }
             if(D) Log.i(TAG, "END onEditorAction");
             return true;
