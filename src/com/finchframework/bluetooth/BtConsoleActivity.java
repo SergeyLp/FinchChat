@@ -131,11 +131,7 @@ public class BtConsoleActivity extends Activity {
         mSendButton = (Button) findViewById(R.id.button_send);
         mSendButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                // Send a message using content of the edit text widget
                 sendFromTextView();
-                //TextView view = (TextView) findViewById(R.id.edit_text_out);
-                //String message = view.getText().toString();
-                //sendMessage(message);
             }
         });
 
@@ -186,7 +182,7 @@ public class BtConsoleActivity extends Activity {
 	 * @param message
 	 *            A string of text to send.
 	 */
-	private void sendMessage(String message) {
+	private void sendMessage(final String message) {
 		if (btSPPHelper.getState() != BtSPPHelper.State.CONNECTED) {
 			Toast.makeText(this, R.string.not_connected, Toast.LENGTH_SHORT).show();
 			return;
@@ -202,11 +198,10 @@ public class BtConsoleActivity extends Activity {
 		}
 	}
 
-    private void sendFromTextView(TextView view){
-        String message = view.getText().toString();
+    private void sendFromTextView(final TextView view){
+        final String message = view.getText().toString();
         sendMessage(message);
     }
-
     private void sendFromTextView(){
         TextView view = (TextView) findViewById(R.id.edit_text_out);
         sendFromTextView(view);
@@ -219,8 +214,6 @@ public class BtConsoleActivity extends Activity {
             // If the action is a key-up event on the return key, send the message
             if (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_UP) {
                 sendFromTextView(view);
-                //String message = view.getText().toString();
-                //sendMessage(message);
             }
             if(D) Log.i(TAG, "END onEditorAction");
             return true;
