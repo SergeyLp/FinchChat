@@ -193,7 +193,8 @@ public class BtConsoleActivity extends Activity {
 		}
 
 		if (message.length() > 0) {
-			byte[] send = message.getBytes();
+            final String sendString = message + '\n';
+			byte[] send = sendString.getBytes();
 			btSPPHelper.write(send);
 
 			mOutStringBuffer.setLength(0);
@@ -236,7 +237,7 @@ public class BtConsoleActivity extends Activity {
 				// construct a string from the valid bytes in the buffer
 				String readMessage;
 				try {
-					readMessage = new String(readBuf, 0, msg.arg1, "UTF-16");
+					readMessage = new String(readBuf, 0, msg.arg1, "US-ASCII"); //UTF-8
 				} catch (UnsupportedEncodingException e) {
 					// Should complain
 					readMessage = "";
