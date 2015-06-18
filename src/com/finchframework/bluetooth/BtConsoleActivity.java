@@ -31,7 +31,7 @@ import com.finchframework.finch.R;
  */
 public class BtConsoleActivity extends Activity {
     // Debugging
-    private static final String TAG = "BluetoothChat";
+    private static final String TAG = "ObdApp";
     private static final boolean D = true;
 
     // Intent request codes
@@ -78,7 +78,7 @@ public class BtConsoleActivity extends Activity {
         if (mBluetoothAdapter == null) {
             Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
             finish();
-            return;
+            //-!return;
         }
     }
 
